@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Salariée{% endblock %}
+
+{% block body %}
+    <h1 class="ms-3">Nouveau Salariée</h1>
+
+    {{ form_start(form) }}
+    <div class="mx-auto" id="photo" style="width:80%;">
+    {{ form_widget(form) }}
+</div>
+{{ form_end(form) }}
+
+    <a href="{{ path('app_user_index') }}" class="btn btn-success m-5 ">Retour à la liste</a>
+{% endblock %}

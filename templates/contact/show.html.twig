@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <h1 class="ms-5">Contact</h1>
+
+    <table class="table mx-auto mt-3" style="width:80%;border:2px solid skyblue">
+        <tbody>
+           
+           <tr class="table-primary">
+                <th>Nom</th>
+                <td>{{ contact.name }}</td>
+            </tr>
+            <tr class="table-danger">
+                <th>Adresse</th>
+                <td>{{ contact.adress }}</td>
+            </tr>
+            <tr class="table-success">
+                <th>Code postal</th>
+                <td>{{ contact.zipcode }}</td>
+            </tr>
+            <tr class="table-warning">
+                <th>Ville</th>
+                <td>{{ contact.city }}</td>
+            </tr>
+           <tr class="table-info">
+                <th>Téléphone</th>
+                <td>{{ contact.phone }}</td>
+            </tr>
+            <tr class="table-secondary">
+                <th>Email</th>
+                <td>{{ contact.email }}</td>
+            </tr>
+            <tr class="table-primary">
+                <th>Complément d'imformation</th>
+                <td>{{ contact.text }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_contact_index') }}"class="btn btn-success ms-5 "><i class="fa-solid fa-right-from-bracket"></i> Retour à la liste</a>
+
+    <a href="{{ path('app_contact_edit', {'id': contact.id}) }}" class="btn btn-warning "><i class="fa-solid fa-pen"></i> Modifier</a>
+
+    {{ include('contact/_delete_form.html.twig') }}
+{% endblock %}

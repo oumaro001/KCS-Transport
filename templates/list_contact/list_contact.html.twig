@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des contacts
+{% endblock %}
+
+{% block body %}
+	<h1 class="ms-4">Liste des contacts</h1>
+
+	<a class=" btn btn-success ms-4" href="{{path('app_main')}}">Retour</a>
+
+	<div class="d-flex justify-content-center d-flex flex-wrap">
+
+		{% for cnt in contact %}
+			<div class="card  m-2">
+				<div class="card-body">
+					<p style="font-weight:bold;">{{cnt.name}}</p>
+					<p>{{cnt.adress}}
+						{{cnt.zipcode}}
+						{{cnt.city}}</p>	
+					{% if cnt.phone %}
+						<p><img src="https://img.icons8.com/material-sharp/24/000000/phone.png"/> {{cnt.phone}}</p>
+					{% endif %}
+					{% if cnt.email %}
+						<p><img src="{{ asset('/images/img/mail.png') }}" style="width:20px">
+							{{cnt.email}}</p>
+						<a href="mailto:{{cnt.email}}" class="btn btn-primary ms-1"style="color:white;" >Contacter</a>
+					{% endif %}
+					{% if cnt.text %}
+					<span style="color:red;">Complément d'information</span><p>{{cnt.text}}</p>
+					{% endif %}
+					
+				</div>
+			</div>
+
+		{% endfor %}
+
+
+	</div>
+
+{% endblock %}

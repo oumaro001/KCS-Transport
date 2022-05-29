@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+
+<div class="mx-auto" id="photo" style="width:80%;">
+    {{ form_widget(form) }}
+</div>
+    <button class="btn btn-primary m-5">{{ button_label|default('Sauvegarder') }}</button>
+{{ form_end(form) }}

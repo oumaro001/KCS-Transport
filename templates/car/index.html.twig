@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des véhicules
+{% endblock %}
+
+{% block body %}
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid" id="haut">
+			<button class="navbar-toggler m-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav m-auto">
+					<a class="nav-link btn" href="{{path('app_main')}}">Acceuil</a>
+					<a class="nav-link" href="{{path('app_user_index')}}">Salariées</a>
+					<a class="nav-link" href="{{path('app_car_index')}}">Véhicules</a>
+					<a class="nav-link" href="{{path('app_contact_index')}}">Coordonnées</a>
+					<a class="nav-link" href="{{path('app_logout')}}">Deconnexion</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div id="arrow_scroll">
+		<a id="cRetour" class="cInvisible" href="#haut"></a>
+	</div>
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %}
+	<h1 class="ms-4 mt-5 mb-5">Liste des véhicules</h1>
+	<div>
+		<section class="d-flex justify-content-center" style="display:flex;flex-flow:wrap;">
+			{% for car in cars %}
+				<div class="card m-3" style="width: 18rem;" id="card_show">
+					<img src="{{ vich_uploader_asset(car, 'imageFile') }}" " class=" card-img-top" alt=" photo de profil" style=" height: 16rem;object-fit: cover;">
+					<div class="card-body">
+						<span>Marque:</span>
+						<p>{{ car.brand }}</p>
+						<span>Modéle:</span>
+						<p>{{ car.model }}</p>
+						<span>Immatrication:</span>
+						<p>{{ car.register }}</p>
+						<span>Places:</span>
+						<p>{{ car.places }}</p>
+						<span>Rampe:</span>
+						{% if car.ramp == "Yes" %}
+							<p>OUI</p>
+						{% else %}
+							<p>NON</p>
+						{% endif %}
+						<div>
+							<a href="{{ path('app_car_show', {'id': car.id}) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+							<a href="{{ path('app_car_edit', {'id': car.id}) }}" class="btn btn-warning"><i class="fa-solid fa-pen"></i></a>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="m-5">
+					<td colspan="8">Aucun Véhicules</td>
+				</div>
+			{% endfor %}
+		</section>
+		<div>
+
+			<a href="{{ path('app_car_new') }}" class="btn btn-success ms-5 mb-4">Nouveau</a>
+
+			<style>
+				span {
+					color: red;
+					font-size: 1.2em;
+				}
+			</style>
+			{#<td>{{ car.ramp ? 'Yes' : 'No' }}</td> #}
+		{% endblock %}

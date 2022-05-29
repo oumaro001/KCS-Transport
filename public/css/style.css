@@ -1,0 +1,43 @@
+.img_homePage{
+
+   border: 10px solid tomato;
+   border-radius: 20px;
+   animation-duration: 25s;
+   animation-name: home_anim;
+}
+
+@keyframes home_anim {
+
+    from{
+        border:  solid gray;
+    }
+   15%{
+       border:  solid green;
+    }
+    30%{
+       border:  solid rgb(255, 38, 38);
+    }
+    45%{
+       border: solid lightblue;
+    }
+    60%{
+       border:  solid orange;
+    }
+    75%{
+       border: solid yellow; 
+   }
+    90%{
+       border: solid violet;
+    }
+    to{
+       border: solid black;
+    }
+}
+ 
+   
+body{
+
+   background-color: white;
+}
+
+

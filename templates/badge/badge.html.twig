@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Badge
+{% endblock %}
+
+{% block body %}
+
+	<div class="d-flex justify-content-center" style="font-size:20px;" id="haut">Badge</div>
+<div id="arrow_scroll">
+		<a id="cRetour" class="cInvisible" href="#haut"></a>
+		</div>
+	<section class="badge_section">
+
+		<article class="mt-4">
+			<div class="img_badge">
+				<img src="{{ vich_uploader_asset(user, 'imageFile') }}" class="card-img-top mx-auto" alt="photo de profil" style="object-fit: cover;">
+			</div>
+		</div>
+	</article>
+
+    <article class="mt-4">
+			<div class=" ms-5">
+				<p>Connecté(e)</p>
+			<div class="neon-connect" style="width:100%;">
+				<img src="{{'/images/img/icons8-spinner.gif'}}" class="card-img-top" alt="photo de profil" style="width: 5rem;">
+			</div>
+            {{date|date('d/m/Y')}}
+		</div>
+	</article>
+    
+    <article class="mt-4">
+    <div class="info_user">
+                <span>Véhicule:</span>
+                {% if user.car %}
+                <p>{{ user.car }}</p>
+                {% else %}
+                <p>Aucun véhicule</p>
+                {% endif %}
+                <span>Nom:</span><p>{{ user.lastname }}</p> 
+                <span>Prénom:</span><p>{{ user.firstname }}</p>
+                <span>Fonction:</span><p>{{ user.fonction }}</p>
+                
+               
+    </div>
+    </article>
+
+</section>
+  <div  class="p-5">
+    <a class="nav-link btn btn-danger m-3" style="color:white;" href="{{path('app_logout')}}"><i class="fa-solid fa-xmark-large"></i>Déconnexion</a>
+    <a class="nav-link btn btn-success m-3" style="color:white;" href="{{path('app_main')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Retour</a>
+  </div>
+
+<style>
+    span{color:red;font-size:18px}
+</style>
+{% endblock %}

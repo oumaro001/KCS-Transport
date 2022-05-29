@@ -1,0 +1,5 @@
+vich_uploader:
+    form_label:
+      delete_confirm: Supprimer l'image ci-dessous ?  
+    link:
+      download: Télécharger

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau salariée{% endblock %}
+
+{% block body %}
+    <h1 class="ms-4">Nouveau salariée</h1>
+
+    <div style="margin:10px 30px">
+    {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm) }}
+
+        <button type="submit" class="btn btn-primary mt-4">Enregistrer</button>
+    {{ form_end(registrationForm) }}
+    <a href="{{ path('app_user_index') }}" class="btn btn-success mt-3">Retour à la liste</a>
+    </div>
+
+<style>
+
+input{
+
+    margin-top:8px;
+}
+
+label{
+
+    margin-top:7px;
+}
+
+select{
+    margin-left:5px;
+}
+
+#user_roles{
+
+    border-left:none;
+    border-right:none;
+    border-bottom:none;
+
+}
+
+#user_roles_1{
+
+    margin:0px 5px;
+}
+
+#user_roles_0{
+
+    margin:0px 5px;
+}
+</style>
+{% endblock %}

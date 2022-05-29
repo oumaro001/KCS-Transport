@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}liste des salariées{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid" id="haut">
+    <button class="navbar-toggler m-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav m-auto">
+        <a class="nav-link btn" href="{{path('app_main')}}">Acceuil</a>
+        <a class="nav-link" href="{{path('app_user_index')}}">Salariées</a>
+        <a class="nav-link" href="{{path('app_car_index')}}">Véhicules</a>
+        <a class="nav-link" href="{{path('app_contact_index')}}">Coordonnées</a>
+        <a class="nav-link" href="{{path('app_logout')}}">Deconnexion</a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="arrow_scroll">
+		<a id="cRetour" class="cInvisible" href="#haut"></a>
+		</div>
+ {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    <h1 class="m-4">Liste des salariées</h1>
+
+    <section style="display:flex;justify-content: center;flex-flow:wrap;">
+        {% for user in users %}
+          <div class="card m-3" style="width: 18rem;" id="card_show">
+            <img src="{{ vich_uploader_asset(user, 'imageFile') }}"" class="card-img-top" alt="photo de profil" style="height: 16rem;object-fit: cover;">
+              <div class="card-body">
+                <span>Nom:</span><p>{{ user.lastname }}</p> 
+                <span>Prénom:</span><p>{{ user.firstname }}</p>
+                <span>Fonction:</span><p>{{ user.fonction }}</p>
+                <span>Véhicule:</span>
+                {% if user.car %}
+                <p>{{ user.car }}</p>
+                {% else %}
+                <p>Aucun véhicule</p>
+                {% endif %}
+                <span>Ville:</span><p>{{ user.city }} ({{user.zipcode}})</p>
+                <div class="d-flex">
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning ms-1"><i class="fa-solid fa-pen"></i></a>
+                    <a href="mailto:{{user.email}}" class="btn btn ms-1"style="color:white;background-color: tomato;" ><i class="fa-solid fa-envelope"></i></a>
+                </div>
+             </div>
+          </div>
+        {% else %}
+            <div class="m-5">
+                <td colspan="8">Aucun Salariées</td>
+            </div>
+        {% endfor %}
+      </section>
+    <a href="{{ path('app_user_new') }}" class="btn btn-success ms-5 mb-4">Nouveau</a>
+    
+ <style>
+        span{
+            color:red;
+            font-size:1.2em;
+        }
+
+    <style>
+{% endblock %}

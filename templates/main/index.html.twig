@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acceuil
+{% endblock %}
+
+{% block body %}
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<button class="navbar-toggler m-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav m-auto">
+					{% if app.user %}
+						<a class="nav-link btn btn-danger m-2" style="color:white;" href="{{path('app_logout')}}">Déconnexion</a>
+					{% else %}
+						<a class="nav-link btn btn-primary m-2" style="color:white;" href="{{path('app_login')}}"><i class="fa-solid fa-user"></i> Connexion</a>
+					{% endif %}
+					<a class="nav-link btn btn-success px-4 m-2" style="color:white;" href="#" id="btnContact"><i class="fa-solid fa-phone"></i> Contact</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a class="nav-link btn btn-primary px-4 m-2" style="color:white;" href="{{path('app_admin')}}"><i class="fa-solid fa-hammer"></i> Administration</a>
+					{% endif %}
+					{% if is_granted('ROLE_USER') %}
+						<a class="nav-link btn  px-4 m-2" style="color:white;background-color:tomato;" href="{{path('app_badge', {'id': app.user.id}) }}"><i class="fa-solid fa-address-card"></i> Badge</a>
+						<a class="nav-link btn  px-4 m-2" style="color:white;background-color:#B6B6B6;" href="{{path('app_profil', {'id': app.user.id}) }}"><i class="fa-solid fa-user"></i> Profil</a>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<section class="img_home" id="img_home">
+    <div class="left"></div>
+		<img src="{{ asset('/images/img/logo_kcs-Transport.png') }}" style="width:16em" class="Img_home">
+	    <div class="rigth"></div>
+</section>
+
+	<section class="ContactHome">
+		<div>
+			<p style="font-weight:bold;">{{contact.name}}</p>
+			<p>{{contact.adress}}
+				{{contact.zipcode}}
+				{{contact.city}}</p>
+			<p><img src="{{ asset('/images/img/phone.png') }}" style="width:20px">
+				{{contact.phone}}</p>
+			<p><img src="{{ asset('/images/img/mail.png') }}" style="width:20px">
+				{{contact.email}}</p>
+			{% if app.user %}
+				<a class="btn btn-primary" style="color:white;" href="{{path('list_contact')}}">Liste des contacts</a>
+			{% endif %}
+			<a href="mailto:{{contact.email}}" class="btn  ms-1" style="color:white;background-color:#DDAE00;">Contacter</a>
+		</div>
+	</section>
+
+{% endblock %}

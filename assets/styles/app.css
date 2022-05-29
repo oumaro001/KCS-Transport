@@ -1,0 +1,471 @@
+html {
+    margin:0;
+    padding:0;
+    height:100%;
+ }
+
+body {
+    background-color: white;
+    min-height:100%;
+   position:relative;
+   padding-bottom:100px;
+
+
+}
+
+#footer {
+    position:absolute;
+    bottom:0;  
+    width:100%;
+    height:80px;
+    background-color: rgb(36, 36, 36);
+    color: #fff; 
+    display: flex;
+    justify-content: center;  
+ }
+
+
+/*--------------- IMAGE HOME PAGE-------------------*/
+.left{
+
+    transform: translateY(194px);
+    width: 0.3%;
+    background-color: red;
+    animation: bar-vertical-left 2s infinite forwards alternate-reverse;
+}
+
+.rigth{
+
+    transform: translateY(-194px);
+    width: 0.3%;
+    background-color: olivedrab;
+    animation: bar-vertical-rigth 2s infinite alternate-reverse forwards;
+}
+
+.img_home {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    height: 70%;
+    width: 82%;
+    margin: auto;
+    margin-top: 100px;
+    border: 4px solid transparent;
+    animation: color 10s forwards infinite;
+
+}
+
+.img_home>img {
+
+
+    width: 15em;
+
+    border-radius: 20px;
+}
+
+.img_home::before {
+
+    content: "";
+    width: 10em;
+    top: 0;
+    position: absolute;
+    height: 2px;
+    margin-top: 0px;
+    background-color: blue;
+    animation: lds-ring 2s forwards infinite alternate-reverse;
+
+
+
+}
+
+.img_home::after {
+
+    content: "";
+    width: 10em;
+    position: absolute;
+    height: 2px;
+    bottom: 0;
+    margin-bottom: 0px;
+    background-color: violet;
+    animation: left-bar 2s forwards infinite alternate-reverse;
+
+
+}
+
+@keyframes lds-ring {
+
+    from {
+
+        transform: translateX(-220px);
+    }
+
+
+    25% {
+        background-color: tomato;
+
+    }
+
+    50% {
+        background-color: palegoldenrod;
+
+    }
+
+    75% {
+        background-color: teal;
+
+    }
+
+    to {
+
+        transform: translateX(220px);
+    }
+
+}
+
+@keyframes left-bar {
+
+    from {
+
+        transform: translateX(220px);
+    }
+
+
+    25% {
+        background-color: tomato;
+
+    }
+
+    50% {
+        background-color: palegoldenrod;
+
+    }
+
+    75% {
+        background-color: teal;
+
+    }
+
+    to {
+
+        transform: translateX(-220px);
+    }
+
+}
+
+@keyframes bar-vertical-left{
+    
+    from {
+
+        transform: translateY(194px);
+    }
+
+
+    25% {
+        background-color: tomato;
+
+    }
+
+    50% {
+        background-color: palegoldenrod;
+
+    }
+
+    75% {
+        background-color: teal;
+
+    }
+
+    to{
+
+        transform: translateY(-194px);
+    }
+
+}
+
+@keyframes bar-vertical-rigth{
+    
+    from {
+
+        transform: translateY(-194px);
+    }
+
+
+    25% {
+        background-color: tomato;
+
+    }
+
+    50% {
+        background-color: palegoldenrod;
+
+    }
+
+    75% {
+        background-color: teal;
+
+    }
+
+    to{
+
+        transform: translateY(194px);
+    }
+
+}
+
+/*------ FIN  IMAGE HOME PAGE-------*/
+
+
+
+
+/*-------------HOME PAGE ADMIN----------------------- */
+.img_homePage {
+
+    border: 15em solid tomato;
+    border-radius: 20px;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-name: home_anim;
+
+}
+
+@keyframes home_anim {
+
+    from {
+        border: solid blue;
+    }
+
+    15% {
+        border: solid rgb(255, 132, 167);
+    }
+
+    30% {
+        border: solid rgb(255, 38, 38);
+    }
+
+    45% {
+        border: solid lightblue;
+    }
+
+    60% {
+        border: solid orange;
+    }
+
+    75% {
+        border: solid yellow;
+    }
+
+    90% {
+        border: solid violet;
+    }
+
+    to {
+        border: solid rgb(49, 194, 129);
+    }
+}
+
+/*-------FIN HOME PAGE ADMIN---------- */
+
+/*------- HOME PAGE CONTACT---------- */
+
+.ContactHome {
+
+
+    justify-content: center;
+    margin-top: 0px;
+    animation: contactAnim 2.4s forwards;
+    display: none;
+
+}
+
+
+@keyframes contactAnim {
+    from {
+        opacity: 0;
+        margin-top: -170px;
+    }
+
+    to {
+        opacity: 1;
+        margin-top: -250px;
+    }
+}
+
+@keyframes imgOpacity {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/*-------FIN HOME PAGE CONTACT---------- */
+
+
+/*---------------------ARROW JS REMONTE PAGE----------------------- */
+
+a#cRetour {
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    opacity: 1;
+    z-index: 99999;
+    transition: all ease-in 0.2s;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    text-decoration: none;
+}
+
+a#cRetour:before {
+    content: "\25b2";
+}
+
+a#cRetour:hover {
+    background: rgba(0, 0, 0, 1);
+    transition: all ease-in 0.2s;
+}
+
+a#cRetour.cInvisible {
+    bottom: -35px;
+    opacity: 0;
+    transition: all ease-in 0.5s;
+}
+
+a#cRetour.cVisible {
+    bottom: 20px;
+    opacity: 1;
+}
+/*--------FIN ARROW JS REMONTE PAGE------- */
+
+
+/*---------------------BADGE PAGE----------------------- */
+
+.img_badge > img {
+
+    border: 3px solid tomato;
+    display:flex;
+    flex-flow:column wrap;
+    border-radius: 30px;
+    height: 18em;
+    width: 21rem;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-name: home_anim;
+
+
+}
+
+.badge_section{
+
+    display:flex;
+    justify-content:center;
+    justify-content: space-evenly;
+    flex-flow:wrap;
+
+}
+/*------FIN BADGE PAGE----------- */
+
+/*----------------------- FORM CAR PAGE------------------- */
+
+input{margin-top:10px;}
+label{margin-top:5px;}
+
+
+.vich-image img{
+    width: 20rem;
+    margin-top:20px;
+    margin-right:20px;
+    border:2px solid tomato;
+    border-radius:20px;
+
+}
+
+
+input{
+
+    margin-top:8px;
+    
+}
+
+label{
+
+    margin-top:7px;
+    margin-right: 2px;
+}
+
+select{
+    margin-left:5px;
+}
+
+#user_roles{
+
+    border-left:none;
+    border-right:none;
+    border-bottom:none;
+
+}
+
+#user_roles_1{
+
+    margin:0px 5px;
+}
+
+#user_roles_0{
+
+    margin:0px 5px;
+}
+
+#photo img{
+
+    width: 20em;
+    margin-top:20px;
+    border:3px solid tomato;
+    border-radius:20px;
+}
+
+/*------------IMAGE CAR PAGE PROFIL-----------------------*/
+.profil-car-card{
+
+    background-color: rgb(232, 232, 232);
+    width: 80%;
+    margin: auto;
+    border: 2px solid black;
+    display: flex;
+    flex-flow: wrap;
+}
+
+.profil-car-card span{
+
+    color: red;
+}
+
+@media screen and (max-width: 1250px) {
+    
+    .profil-car-card{
+
+        justify-content: center;
+    }
+
+    .profil-car-card img{
+
+        max-width: 15em;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    
+    
+    .profil-car-card img{
+        max-width: 9em;
+    }
+
+    
+}

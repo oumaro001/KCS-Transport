@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+
+
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        
+        {% endfor %}
+
+	<h1 class="ms-5">Profil</h1>
+	<table class="table mx-auto mt-3" style="width:80%;border:2px solid skyblue">
+		<tbody>
+			<tr class="table-primary">
+				<th>Nom</th>
+				<td>{{ user.lastname }}</td>
+			</tr>
+			<tr class="table-warning">
+				<th>Prénom</th>
+				<td>{{ user.firstname }}</td>
+			</tr>
+			<tr class="table-danger">
+				<th>Email</th>
+				<td>{{ user.email }}</td>
+			</tr>
+			<tr class="table-ligth" style="background-color:#FFE0AE;">
+				<th>Adresse compléte</th>
+				<td>{{ user.adress }}
+					{{user.zipcode}}
+					{{user.city}}</td>
+			</tr>
+			<tr class="table-secondary">
+				<th>Fonction</th>
+				<td>{{ user.fonction }}</td>
+			</tr>
+			<tr class="table-info">
+				<th>Téléphone</th>
+				<td>{{ user.phone }}</td>
+			</tr>
+		</tbody>
+	</table>
+<div style="display:flex;justify-content:center;"class="mb-5 d-flex flex-wrap">
+  <a href="{{ path('_edit_password', {'id': user.id}) }}" class="btn btn-secondary ms-4 mt-2"><i class="fa-solid fa-pen"></i> Modifier mot de passe</a>
+</div>
+
+<h2 class="ms-5">Véhicule</h2>
+{% for crs in car %}
+ {% if crs == user.car %} 
+ <section>
+<div class="profil-car-card ">
+<img src="{{ vich_uploader_asset(crs, 'imageFile') }}"" class="card-img-top m-2" alt="photo de profil" style="width:20rem;object-fit: cover;border:solid 2px red;border-radius:20px;">
+<div class="ms-5 mt-2">
+<span>Marque: </span><p>{{crs.brand}}</p>
+<span>Modéle: </span><p>{{crs.model}}</p>
+<span>Immatriculation: </span><p>{{crs.register}}</p>
+<span>Nombre de places: </span><p>{{crs.places}}</p>
+<span>Rampe: </span>
+{% if crs.ramp == true %} 
+<p>OUI</p>
+{% else %}
+<p>NON</p>
+{% endif %}
+
+</div>
+</div>
+</section>
+{% endif %}  
+{% endfor %}
+ <a class=" btn btn-success m-5" style="color:white;" href="{{path('app_main')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Retour</a>
+
+{% endblock %}
