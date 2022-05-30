@@ -29,13 +29,7 @@
             </tr>
             <tr class="table-ligth">
                 <th>Véhicule</th>
-                <td>{{ user.car }} 
-                {% for car in cars %}
-                {% if car.register == user.car  %}
-                 <a href="{{ path('app_car_by_user', {'id': car.id}) }}" class="btn btn-secondary ms-5"><i class="fa-solid fa-eye"></i></a>    
-                {% endif %}               
-                {% endfor %}
-                </td>
+                <td>{{ user.car }}</td>
             </tr>
              <tr class="table-info">
                 <th>Téléphone</th>
@@ -60,10 +54,11 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_index') }}" class="btn btn-success ms-5"> <i class="fa-solid fa-right-from-bracket"></i> Retour à la liste</a>
+    <a href="{{ path('app_car_index') }}" class="btn btn-success ms-5"> <i class="fa-solid fa-right-from-bracket"></i> Retour à la liste</a>
 
     <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning ms-4"><i class="fa-solid fa-pen"></i> Modifier</a>
 
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}
+

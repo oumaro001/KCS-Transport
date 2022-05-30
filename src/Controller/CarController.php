@@ -69,19 +69,23 @@ class CarController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_car_show', methods: ['GET'])]
-    public function show(Car $car): Response
+    public function show(Car $car,UserRepository $userRepository): Response
     {   
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
         }
 
+        $users = $userRepository->findAll();
+
+
         return $this->render('car/show.html.twig', [
             'car' => $car,
+            'users' => $users,
         ]);
     }
 
     #[Route('/{id}/editer_car', name: 'app_car_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Car $car, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Car $car, EntityManagerInterface $entityManager ): Response
     {   
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
@@ -89,6 +93,7 @@ class CarController extends AbstractController
 
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -102,6 +107,7 @@ class CarController extends AbstractController
         return $this->renderForm('car/edit.html.twig', [
             'car' => $car,
             'form' => $form,
+            
         ]);
     }
 
