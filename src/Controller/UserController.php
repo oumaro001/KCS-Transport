@@ -50,7 +50,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/nouveau_salariee', name: 'app_user_new', methods: ['GET', 'POST'])]
+    #[Route('/nouveau_salarie', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
     {  
          if (!$this->isGranted('ROLE_ADMIN')) {
@@ -97,7 +97,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editer_salariee', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/editer_salaries', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
     {   
         if (!$this->isGranted('ROLE_ADMIN')) {
