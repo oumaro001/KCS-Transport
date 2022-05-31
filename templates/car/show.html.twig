@@ -19,17 +19,6 @@
                 <th>Immatrilation</th>
                 <td>{{ car.register }}</td>
             </tr>
-            
-            <tr class="table-secondary">
-                    <th>Chauffeur</th>
-                     <td>
-                     {% for usr in users %}
-                    {% if usr.car.id  ==  car.id %}
-                    {{usr.lastname}}<a href="{{path('app_user_by_car', {'id': usr.id}) }}" class="btn btn-secondary me-4 ms-2"><i class="fa-solid fa-eye"></i></a> 
-                    {% endif %}
-                {% endfor %}
-                </td>
-            </tr>
             <tr class="table-ligth">
                 <th>Places</th>
                 <td>{{ car.places }}</td>

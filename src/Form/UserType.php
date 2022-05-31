@@ -32,6 +32,9 @@ class UserType extends AbstractType
                 'class' => Car::class,
                 'choice_label' => 'register',
                 'label' => 'Véhicule',
+                'placeholder' => 'Aucun véhicule',
+                'required' => false,
+
             ])
             ->add('phone', TextType::class, ['attr' => ['class' => 'form-control'], 'label' => 'Phone'])
             ->add('imageFile', VichImageType::class, [
