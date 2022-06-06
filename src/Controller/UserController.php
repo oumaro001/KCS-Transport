@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Car;
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use App\Form\UserType;
+use App\Form\FilteredByNameType;
 use App\Repository\CarRepository;
+use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,12 +27,48 @@ class UserController extends AbstractController
    
 
 
-    #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/', name: 'app_user_index', methods: ['GET', 'POST'])]
+    public function index(EntityManagerInterface $entityManager,Request $request,UserRepository $userRepository,CarRepository $carRepository): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
         }
+
+        //formulaire pour la barre de recherche selon le nom
+        $form = $this->createForm(FilteredByNameType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $lastname = $form->get('lastname')->getData();
+
+            if(!empty($lastname)) {
+                $user = $entityManager
+                ->getRepository(User::class)
+                ->findOneBy([
+                    'lastname' => $lastname,
+                
+                ]);
+
+                $cars = $entityManager
+                ->getRepository(Car::class)
+                ->findAll();
+
+                if(!isset($user)){
+
+                    $this->addFlash('danger', 'Nom incorrect');
+
+                }else
+              
+                return $this->render('user/show.html.twig', [
+                    'user' => $user,
+                    'cars' => $cars,
+                ]);
+  
+        }else $this->addFlash('danger', 'le champ n\'est pas remplie');
+    
+        }
+
 
 
         $users = $entityManager
@@ -47,8 +84,10 @@ class UserController extends AbstractController
         return $this->render('user/index.html.twig', [
             'users' => $users,
             'car' => $car,
+            'form' =>$form->createView(),
         ]);
-    }
+    
+}
 
     #[Route('/nouveau_salarie', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response

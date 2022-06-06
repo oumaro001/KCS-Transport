@@ -28,7 +28,22 @@
 			{{ message }}
 		</div>
 	{% endfor %}
+	{% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
 	<h1 class="ms-4 mt-5 mb-5">Liste des véhicules</h1>
+	 <div class="card m-3">
+  <div class="card-header">
+    Recherche
+  </div>
+  <div class="card-body">
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+  </div>
+</div>
 	<div>
 		<section class="d-flex justify-content-center" style="display:flex;flex-flow:wrap;">
 			{% for car in cars %}

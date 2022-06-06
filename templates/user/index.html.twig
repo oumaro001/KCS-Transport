@@ -27,7 +27,22 @@
                 {{ message }}
             </div>
         {% endfor %}
+        {% for message in app.flashes('danger') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
     <h1 class="m-4">Liste des salariés</h1>
+    <div class="card m-3">
+  <div class="card-header">
+    Recherche
+  </div>
+  <div class="card-body">
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+  </div>
+</div>
 
     <section style="display:flex;justify-content: center;flex-flow:wrap;">
         {% for user in users %}

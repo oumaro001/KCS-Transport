@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Entity\User;
 use App\Form\CarType;
+use App\Form\FilteredByRegisterType;
 use App\Repository\CarRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,11 +25,40 @@ class CarController extends AbstractController
 
  
 
-    #[Route('/', name: 'app_car_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager ,UserRepository $userRepository): Response
+    #[Route('/', name: 'app_car_index', methods: ['GET','POST'])]
+    public function index(EntityManagerInterface $entityManager,Request $request): Response
     {   
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
+        }
+        //formulaire pour la barre de recherche selon l 'immatriculation (register)
+        $form = $this->createForm(FilteredByRegisterType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $register = $form->get('register')->getData();
+
+            if(!empty($register)) {
+                $cars = $entityManager
+                ->getRepository(Car::class)
+                ->findOneBy([
+                    'register' => $register,
+                
+                ]);
+
+                if(!isset($cars)){
+
+                    $this->addFlash('danger', 'Nom incorrect');
+
+                }else
+              
+                return $this->render('car/show.html.twig', [
+                    'car' => $cars,
+                ]);
+  
+        }else $this->addFlash('danger', 'le champ n\'est pas remplie');
+    
         }
 
         $cars = $entityManager
@@ -37,6 +68,8 @@ class CarController extends AbstractController
 
         return $this->render('car/index.html.twig', [
             'cars' => $cars,
+            'form' =>$form->createView(),
+
             
         ]);
     }
@@ -68,13 +101,13 @@ class CarController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_car_show', methods: ['GET'])]
-    public function show(Car $car,UserRepository $userRepository): Response
+    #[Route('/{id}', name: 'app_car_show', methods: ['GET','POST'])]
+    public function show(Car $car,UserRepository $userRepository,): Response
     {   
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
         }
-
+        
         $users = $userRepository->findAll();
 
 

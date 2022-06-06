@@ -49,6 +49,7 @@ class UserType extends AbstractType
                 'choices'  => [
                     'Salariées' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN',
+                    
                 ], 'attr' => ['class' => 'form-control'], 'label' => 'Status'
             ]);
         // roles field data transformer 
