@@ -1,5 +1,5 @@
 <?php
-
+//Controller pour la page Profil
 namespace App\Controller;
 
 use App\Entity\User;
@@ -38,7 +38,7 @@ class ProfilController extends AbstractController
         ]);
     }
 
-
+    //Fonction pour modifier le mot de passe
     #[Route('/{id}/modifier_mot-de-passe/', name: '_edit_password', methods: ['GET', 'POST'])]
     public function editEmail(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,)
     {

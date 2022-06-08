@@ -1,5 +1,6 @@
 <?php
 
+//Controller pour les users
 namespace App\Controller;
 
 use App\Entity\Car;
@@ -7,7 +8,6 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\CarRepository;
 use App\Form\RegistrationFormType;
-use App\Repository\UserRepository;
 use App\Form\FilteredByRegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,9 +26,9 @@ class UserController extends AbstractController
     
    
 
-
+    //afficher tous les users
     #[Route('/', name: 'app_user_index', methods: ['GET', 'POST'])]
-    public function index(EntityManagerInterface $entityManager,Request $request,CarRepository $carRepository): Response
+    public function index(EntityManagerInterface $entityManager,Request $request,): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
@@ -63,7 +63,7 @@ class UserController extends AbstractController
 
             if(!isset($user)){
 
-                $this->addFlash('danger','Aucun employé ne possède ce voiture.');
+                $this->addFlash('danger','Aucun employé ne possède se voiture.');
             }else{
 
 
@@ -94,7 +94,7 @@ class UserController extends AbstractController
             ->getRepository(Car::class)
             ->findAll();
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/salaries.html.twig', [
             'users' => $users,
             'car' => $car,
             'form' =>$form->createView(),
@@ -102,6 +102,7 @@ class UserController extends AbstractController
     
 }
 
+    //ajouter un nouveau user
     #[Route('/nouveau_salarie', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
     {  
@@ -134,6 +135,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    //afficher un user
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user , CarRepository $carRepository): Response
     {   
@@ -149,6 +151,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    //modifier un user
     #[Route('/{id}/editer_salaries', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
     {   
@@ -159,7 +162,6 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        $EditImages = $user->getImageName();
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -168,17 +170,6 @@ class UserController extends AbstractController
     
             $entityManager->flush();
 
-            $NewImages = $user->getImageName();
-            
-
-            if($EditImages != $NewImages){
-
-                $nomImage= $this->getParameter("app.path.users_images").'/'. $EditImages ;
-
-                if(file_exists($nomImage)){
-                    unlink($nomImage);
-                }
-            }
 
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -190,6 +181,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    //supprimer un user
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {   
@@ -199,11 +191,13 @@ class UserController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
 
+
+            
             $images = $user->getImageName();
 
         if($images){
-                $nomImage= $this->getParameter("app.path.users_images").'/'. $images ;
-
+                $nomImage= $this->getParameter("app.path.users_images").'/'. $images ; //chemin vers image
+                //supprime image dans les dossier users
                 if(file_exists($nomImage)){
                     unlink($nomImage);
                 }

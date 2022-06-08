@@ -1,20 +1,16 @@
 <?php
-
+//Controller des cars
 namespace App\Controller;
 
 use App\Entity\Car;
-use App\Entity\User;
 use App\Form\CarType;
 use App\Form\FilteredByRegisterType;
-use App\Repository\CarRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -24,7 +20,7 @@ class CarController extends AbstractController
 {
 
  
-
+    //afficher tous les car
     #[Route('/', name: 'app_car_index', methods: ['GET','POST'])]
     public function index(EntityManagerInterface $entityManager,Request $request): Response
     {   
@@ -58,7 +54,7 @@ class CarController extends AbstractController
             ->findAll();
 
 
-        return $this->render('car/index.html.twig', [
+        return $this->render('car/car.html.twig', [
             'cars' => $cars,
             'form' =>$form->createView(),
 
@@ -66,6 +62,7 @@ class CarController extends AbstractController
         ]);
     }
 
+    //Ajouter un nouveau car
     #[Route('/nouveau_car', name: 'app_car_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {   
@@ -93,6 +90,7 @@ class CarController extends AbstractController
         ]);
     }
 
+    //afficher un car
     #[Route('/{id}', name: 'app_car_show', methods: ['GET','POST'])]
     public function show(Car $car,UserRepository $userRepository,): Response
     {   
@@ -109,6 +107,7 @@ class CarController extends AbstractController
         ]);
     }
 
+      //Modifier un car
     #[Route('/{id}/editer_car', name: 'app_car_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Car $car, EntityManagerInterface $entityManager ): Response
     {   
@@ -136,8 +135,9 @@ class CarController extends AbstractController
         ]);
     }
 
+      //supprimer un nouveau car
     #[Route('/{id}', name: 'app_car_delete', methods: ['POST'])]
-    public function delete(Request $request, Car $car, EntityManagerInterface $entityManager,UserRepository $userRepository): Response
+    public function delete(Request $request, Car $car, EntityManagerInterface $entityManager,): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
@@ -146,6 +146,7 @@ class CarController extends AbstractController
        
         if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
 
+            //supprimer l'image du dossier cars
             $carImages = $car->getImageName();
 
             if($carImages){

@@ -1,16 +1,13 @@
 <?php
-
+//Controller des contacts
 namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -18,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/contact')]
 class ContactController extends AbstractController
 {
-    
+    //afficher tous les contacts
     #[Route('/', name: 'app_contact_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {  
@@ -30,12 +27,13 @@ class ContactController extends AbstractController
             ->getRepository(Contact::class)
             ->findAll();
 
-        return $this->render('contact/index.html.twig', [
+        return $this->render('contact/contact.html.twig', [
             'contacts' => $contacts,
         ]);
     }
 
     
+        //ajouter nouveau contact
     #[Route('/nouveau_contact', name: 'app_contact_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {   
@@ -64,6 +62,7 @@ class ContactController extends AbstractController
     }
 
    
+        //afficher un contact
     #[Route('/{id}', name: 'app_contact_show', methods: ['GET'])]
     public function show(Contact $contact): Response
     {   
@@ -77,6 +76,7 @@ class ContactController extends AbstractController
     }
 
     
+    //modifier un contact
     #[Route('/{id}/editer_contact', name: 'app_contact_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
     {  
@@ -103,6 +103,7 @@ class ContactController extends AbstractController
     }
 
    
+    //supprimer un contact
     #[Route('/{id}', name: 'app_contact_delete', methods: ['POST'])]
     public function delete(Request $request, Contact $contact, EntityManagerInterface $entityManager): Response
     {   

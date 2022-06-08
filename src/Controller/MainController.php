@@ -1,5 +1,5 @@
 <?php
-
+//Controller pour la page Accueil
 namespace App\Controller;
 
 use App\Repository\ContactRepository;
@@ -12,6 +12,7 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(ContactRepository $contactRepository): Response
     {
+        //afficher le contact de kcs transport
         $contact = $contactRepository->findOneBy(
             ["name" => "Kcs Transport"]
         );
