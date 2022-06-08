@@ -5,10 +5,10 @@ namespace App\Controller;
 use App\Entity\Car;
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\FilteredByNameType;
 use App\Repository\CarRepository;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
+use App\Form\FilteredByRegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,47 +28,60 @@ class UserController extends AbstractController
 
 
     #[Route('/', name: 'app_user_index', methods: ['GET', 'POST'])]
-    public function index(EntityManagerInterface $entityManager,Request $request,UserRepository $userRepository,CarRepository $carRepository): Response
+    public function index(EntityManagerInterface $entityManager,Request $request,CarRepository $carRepository): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
         }
 
-        //formulaire pour la barre de recherche selon le nom
-        $form = $this->createForm(FilteredByNameType::class);
+        //Barre de recherche de user selon son véhicule
+        $form = $this->createForm(FilteredByRegisterType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $lastname = $form->get('lastname')->getData();
+          //  dd($form->get('car')->getData());
 
-            if(!empty($lastname)) {
-                $user = $entityManager
-                ->getRepository(User::class)
-                ->findOneBy([
-                    'lastname' => $lastname,
-                
-                ]);
+            if($form->get('car')->getData() == null){
+                $this->addFlash('danger','Veiller sélectionner un véhicule');
+
+            }else{ 
+             
+            $register = $form->get('car')->getData();
+
+               if(!empty($register)){
+
+                    $user = $entityManager
+                    ->getRepository(User::class)
+                    ->findOneBy([
+                        'car' => $register->getId(), ]);
+  
+
+                }
+
+            
+
+            if(!isset($user)){
+
+                $this->addFlash('danger','Aucun employé ne possède ce voiture.');
+            }else{
+
 
                 $cars = $entityManager
                 ->getRepository(Car::class)
                 ->findAll();
 
-                if(!isset($user)){
-
-                    $this->addFlash('danger', 'Nom incorrect');
-
-                }else
+                
               
                 return $this->render('user/show.html.twig', [
                     'user' => $user,
                     'cars' => $cars,
                 ]);
   
-        }else $this->addFlash('danger', 'le champ n\'est pas remplie');
-    
         }
-
+        
+    }
+        }
 
 
         $users = $entityManager

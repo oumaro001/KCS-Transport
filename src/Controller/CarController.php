@@ -31,36 +31,28 @@ class CarController extends AbstractController
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_login');
         }
-        //formulaire pour la barre de recherche selon l 'immatriculation (register)
+        //formulaire pour la barre de recherche selon l 'immatriculation
         $form = $this->createForm(FilteredByRegisterType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+        
+            if($form->get('car')->getData() == null){
 
-            $register = $form->get('register')->getData();
+                $this->addFlash('danger','Veiller sélectionner un véhicule');
+            }else{
 
-            if(!empty($register)) {
-                $cars = $entityManager
-                ->getRepository(Car::class)
-                ->findOneBy([
-                    'register' => $register,
-                
-                ]);
+            $register = $form->get('car')->getData();
 
-                if(!isset($cars)){
-
-                    $this->addFlash('danger', 'Nom incorrect');
-
-                }else
-              
+            $cars = $register;
+            
                 return $this->render('car/show.html.twig', [
                     'car' => $cars,
                 ]);
   
-        }else $this->addFlash('danger', 'le champ n\'est pas remplie');
-    
         }
-
+    
+    }
         $cars = $entityManager
             ->getRepository(Car::class)
             ->findAll();
