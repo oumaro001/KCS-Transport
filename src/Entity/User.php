@@ -3,23 +3,25 @@
 namespace App\Entity;
 
 
+use App\Entity\Car;
 use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Asst;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Asst;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
  
  
 
 #[Vich\Uploadable] 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface 
 {
 
 
@@ -280,27 +282,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->imageName;
     }
 
-    public function serialize()
-{
-    return serialize(array(
-        $this->id,
-        $this->username,
-        $this->password,
-        // see section on salt below
-        // $this->salt,
-    ));
-}
-
-public function unserialize($serialized)
-{
-    list (
-        $this->id,
-        $this->username,
-        $this->password,
-        // see section on salt below
-        // $this->salt
-    ) = unserialize($serialized);
-}
+    public  function  serialize () 
+    { 
+        return  serialize ( array ( 
+            $this -> id , 
+           $this -> lastname , 
+            $this -> password , 
+        )); 
+    }
+    
+    public  function  unserialize ( $serialized ) 
+    { 
+        list  ( 
+            $this -> id , 
+            $this -> lastname , 
+            $this -> password , 
+        )  =  unserialize ( $serialized ); 
+    }
 
 public function getAdress(): ?string
 {

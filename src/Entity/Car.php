@@ -2,17 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\CarRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CarRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Asst;
-
 #[Vich\Uploadable] 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
-class Car
+
+class Car implements \Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -198,6 +199,26 @@ class Car
         return $this;
     }
 
-   
+    public function serialize()
+    {
+        return serialize(array(
+          
+            $this->id,
+            $this->imageName,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+    
+    public function unserialize($serialized)
+    {
+        list (
+            
+            $this->id,
+            $this->imageName,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }
     
 }

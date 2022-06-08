@@ -7,6 +7,7 @@ use App\Entity\Car;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -53,7 +54,10 @@ class RegistrationFormType extends AbstractType
         ])*/
         ->add('phone',TextType::class,['attr' => ['class' => 'form-control'], 'label' => 'Téléphone']) 
        
-
+        ->add('imageFile', VichImageType::class, [
+            'required' => false,
+            'label' => 'Photo'
+        ])
         ->add('Sauvegarder',SubmitType::class,['attr' => ['class' => 'btn btn-primary mt-4 '],]) 
      
             ;
