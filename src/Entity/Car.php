@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CarRepository;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Asst;
+
 #[Vich\Uploadable] 
 #[ORM\Entity(repositoryClass: CarRepository::class)]
 
@@ -136,8 +138,8 @@ class Car implements \Serializable
         $this->imageFile = $imageFile;
 
         if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
+            //Il est nécessaire qu'au moins un champ change si vous utilisez la doctrine
+             // sinon les écouteurs d'événements ne seront pas appelés et le fichier sera perdu
             $this->updated_at = new \DateTimeImmutable();
         }
     }
