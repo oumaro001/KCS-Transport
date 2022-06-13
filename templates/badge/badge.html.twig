@@ -40,14 +40,14 @@
                 <span>Prénom:</span><p>{{ user.firstname }}</p>
                 <span>Fonction:</span><p>{{ user.fonction }}</p>
                 
-               
+         
     </div>
     </article>
 
 </section>
-  <div  class="p-5">
-    <a class="nav-link btn btn-danger m-3" style="color:white;" href="{{path('app_logout')}}"><i class="fa-solid fa-xmark-large"></i>Déconnexion</a>
-    <a class="nav-link btn btn-success m-3" style="color:white;" href="{{path('app_main')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Retour</a>
+  <div  class="p-5 d-flex justify-content-center">
+    <a class=" btn btn-danger m-3" style="color:white;" href="{{path('app_logout')}}"><i class="fa-solid fa-xmark-large"></i>Déconnexion</a>
+    <a class="btn btn-success m-3" style="color:white;" href="{{path('app_main')}}"><i class="fa-solid fa-arrow-right-from-bracket"></i> Retour</a>
   </div>
 
 <style>

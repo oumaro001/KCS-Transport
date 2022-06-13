@@ -15,7 +15,7 @@ class BadgeController extends AbstractController
 {
     
     #[Route('/badge/{id}', name: 'app_badge')]
-    public function index( User $user, ): Response
+    public function index( User $user,): Response
     {   
         if (!$this->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('app_login');

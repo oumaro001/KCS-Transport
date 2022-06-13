@@ -40,7 +40,6 @@ class UserController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-          //  dd($form->get('car')->getData());
 
             if($form->get('car')->getData() == null){
                 $this->addFlash('danger','Veiller sélectionner un véhicule');

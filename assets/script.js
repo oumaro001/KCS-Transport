@@ -20,19 +20,4 @@ btnContact.addEventListener('click',function(){
     
     })
 })
-//************Arrow scroll*************** */
 
-document.addEventListener('DOMContentLoaded', function() {
-    window.onscroll = function() {
-
-       // let cRetour = document.getElementById("cRetour");
-
-       /* if(window.pageYOffset < 00){
-
-            cRetour.style.opacity= "0";
-        } */
-        
-
-   document.getElementById("cRetour").className = (window.pageYOffset > 100) ? "cVisible" : "cInvisible";
-    };
-  });

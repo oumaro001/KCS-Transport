@@ -9,12 +9,10 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
 {
@@ -52,15 +50,15 @@ class UserType extends AbstractType
                     
                 ], 'attr' => ['class' => 'form-control'], 'label' => 'Status'
             ]);
-        // roles field data transformer 
-        $builder->get('roles')
+            // Transformateur de données de champs de rôles
+            $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesArray) {
-                    // transform the array to a string
+                    // transforme le tableau en chaîne
                     return count($rolesArray) ? $rolesArray[0] : null;
                 },
                 function ($rolesString) {
-                    // transform the string back to an array
+                    // transforme la chaîne en tableau
                     return [$rolesString];
                 }
             ));
