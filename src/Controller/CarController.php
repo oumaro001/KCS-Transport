@@ -35,7 +35,7 @@ class CarController extends AbstractController
         
             if($form->get('car')->getData() == null){
 
-                $this->addFlash('danger','Veiller sélectionner un véhicule');
+                $this->addFlash('danger','Veuillez sélectionner un véhicule');
             }else{
 
             $register = $form->get('car')->getData();

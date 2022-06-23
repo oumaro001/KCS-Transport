@@ -19,9 +19,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/profil')]
 class ProfilController extends AbstractController
 {
-
-
-
+    //afficher la page profil de user
     #[Route('/{id}', name: 'app_profil')]
     public function profil(User $user, CarRepository $carRepository): Response
     {

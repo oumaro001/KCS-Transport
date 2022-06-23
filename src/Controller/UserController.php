@@ -42,7 +42,7 @@ class UserController extends AbstractController
 
 
             if($form->get('car')->getData() == null){
-                $this->addFlash('danger','Veiller sélectionner un véhicule');
+                $this->addFlash('danger','Veuillez sélectionner un véhicule');
 
             }else{ 
              
@@ -62,7 +62,7 @@ class UserController extends AbstractController
 
             if(!isset($user)){
 
-                $this->addFlash('danger','Aucun employé ne possède se voiture.');
+                $this->addFlash('danger','Aucun salarié ne possède se voiture.');
             }else{
 
 
@@ -103,7 +103,8 @@ class UserController extends AbstractController
 
     //ajouter un nouveau user
     #[Route('/nouveau_salarie', name: 'app_user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $userPasswordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $userPasswordHasher): Response
     {  
          if (!$this->isGranted('ROLE_ADMIN')) {
         return $this->redirectToRoute('app_login');

@@ -47,9 +47,9 @@
   <a href="{{ path('_edit_password', {'id': user.id}) }}" class="btn btn-secondary ms-4 mt-2"><i class="fa-solid fa-pen"></i> Modifier mot de passe</a>
 </div>
 
-<h2 class="ms-5">Véhicule</h2>
 {% for crs in car %}
  {% if crs == user.car %} 
+<h2 class="ms-5">Véhicule</h2>
  <section>
 <div class="profil-car-card ">
 <img src="{{ vich_uploader_asset(crs, 'imageFile') }}"" class="card-img-top m-2" alt="photo de profil" style="width:20rem;object-fit: cover;border:solid 2px red;border-radius:20px;">

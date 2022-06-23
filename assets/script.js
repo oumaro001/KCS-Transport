@@ -14,8 +14,7 @@ btnContact.innerHTML="Retour";
 
 btnContact.addEventListener('click',function(){
 
-    contact.style.animation= 'contactAnim 2s forwards reverse';
-    image.style.animation= 'imgOpacity 2s forwards reverse';
+  
     btnContact.addEventListener('click', location.reload(), false);
     
     })
